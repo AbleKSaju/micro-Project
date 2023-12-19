@@ -26,9 +26,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", (req, res) => {
+router.post("/register",async (req, res) => {
   const { name, email, password } = req.body;
-  const userExist = User.findOne({ email }).lean();
+  const userExist = await User.findOne({ email }).lean();
   if (userExist.email) {
     return res.json({ message: "User already exists" });
   } else {
@@ -41,5 +41,14 @@ router.post("/register", (req, res) => {
     return res.json(newUser);
   }
 });
+
+router.get('/allUsers',async(req,res)=>{
+  const users=await User.find().lean()
+  if(users.length){
+    res.json(users)
+  }else{
+    res.json({message:"No Users"})
+  }
+})
 
 export default router;
