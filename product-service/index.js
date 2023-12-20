@@ -5,7 +5,7 @@ import connect from './config/rabbitmq.js';
 const app=express()
 const PORT=8080
 connectDB()
-// connect()
+connect()
 app.use(express.json())
 app.use(express.urlencoded({extended:false}));
 app.use('/api/products',productRouter)
